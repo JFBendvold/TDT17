@@ -11,12 +11,12 @@ else:       data_root = "/datasets/tdt4265/Poles2025"
 
 data_path       = os.path.join(data_root, dataset, "data.yaml")
 test_set_path   = os.path.join(data_root, dataset, "test", "images")
-output_dir      = "yolo/nano"
+output_dir      = "yolo/medium"
 
 
 
 # ----- Train Model ----- 
-model = YOLO("yolo11n.pt")
+model = YOLO("yolo11m.pt")
 results = model.train(data=data_path, epochs=200, imgsz=1280, batch=8, project=output_dir, lr0=1e-3)
 
 # We use the best performing model for analysis
