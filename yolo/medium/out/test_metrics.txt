@@ -1,0 +1,5 @@
+--- Test Set Performance ---
+Precision:       0.925149
+Recall:          0.893805
+mAP@50:          0.964352
+mAP@0.5:0.95:    0.723752
