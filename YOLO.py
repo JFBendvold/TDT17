@@ -1,6 +1,6 @@
 import os
-import random
 from ultralytics import YOLO
+
 
 # ----- Setup ----- 
 idun = False
@@ -14,20 +14,25 @@ test_set_path   = os.path.join(data_root, dataset, "test", "images")
 output_dir      = "yolo/nano"
 
 
+
 # ----- Train Model ----- 
 model = YOLO("yolo11n.pt")
-results = model.train(data=data_path, epochs=250, imgsz=1280, batch=8, project=output_dir, lr0=1e-3)
+results = model.train(data=data_path, epochs=200, imgsz=1280, batch=8, project=output_dir, lr0=1e-3)
+
+# We use the best performing model for analysis
+best_model_path= os.path.join(output_dir, "train", "weights", "best.pt")
+best_model = YOLO(best_model_path)
 
 
 
 # ----- Save sample output ----- 
 all_imgs = [os.path.join(test_set_path, f) for f in os.listdir(test_set_path)]
 
-results = model.predict(
-    source=all_imgs[5:],    # We sample the first 5 imgs
-    save=True,              # saves images with boxes
+results = best_model.predict(
+    source=all_imgs,
+    save=True,
     project=os.path.join(output_dir, "out"),
-    exist_ok=True           # don't create new numbered folder each run
+    exist_ok=True
 )
 
 print("Saved annotated images to: runs/export/sample_preds")
@@ -35,10 +40,6 @@ print("Saved annotated images to: runs/export/sample_preds")
 
 
 # ----- Evaluation on Testset -----
-
-best_model_path= os.path.join(output_dir, "train", "weights", "best.pt")
-best_model = YOLO(best_model_path)
-
 metrics = best_model.val(
     data=data_path,
     split="val", 
