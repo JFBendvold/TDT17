@@ -2,7 +2,7 @@ import os
 import random
 from ultralytics import YOLO
 
-# Setup variables
+# ----- Setup ----- 
 idun = False
 dataset = "roadpoles_v1"
 
@@ -13,13 +13,14 @@ data_path       = os.path.join(data_root, dataset, "data.yaml")
 test_set_path   = os.path.join(data_root, dataset, "test", "images")
 
 
-# Train Model
+
+# ----- Train Model ----- 
 model = YOLO("yolo11n.pt")
 results = model.train(data=data_path, epochs=100, imgsz=1280, batch=8, project="yolo", lr0=1e-3)
 
 
 
-# Save sample output
+# ----- Save sample output ----- 
 all_imgs = [os.path.join(test_set_path, f) for f in os.listdir(test_set_path)]
 
 results = model.predict(
