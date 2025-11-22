@@ -11,11 +11,13 @@ test_images_path = os.path.join(dataset_root, "test", "images")
 model_small_path  = "yolo/small/train/weights/best.pt"
 model_nano_path   = "yolo/nano/train/weights/best.pt"
 model_medium_path = "yolo/medium/train/weights/best.pt"
+rtdt_large_path   = "rtdetr_1280/train/weights/best.pt"
 
 test_models = {
     "small": model_small_path,
     "nano":  model_nano_path,
     "medium": model_medium_path,
+    "rtdt":   rtdt_large_path
 }
 
 runtime = 60 
